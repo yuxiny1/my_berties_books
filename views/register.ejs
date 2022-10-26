@@ -1,16 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+  <p><a href="/"> HOME PAGE </a></p>
   <head>
+    <p><a href="/"> HOME PAGE </a></p>
     <title>Register for <%=shopName%></title>
-    <link rel="stylesheet"  type="text/css" href="main.css" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
   </head>
   <body>
     <h1>Register for <%=shopName%></h1>
     <form method="POST" action="/registered">
-        <p>First name: <input id="first" type="text" name="first" value="first name" /></p>
-        <p>Last name: <input id="last" type="text" name="last" value="last name" /></p>
-        <p>Email: <input id="email" type="email" name="email" value="email" /></p>
-        <input type="submit" value="Register" />
-      </form>
+      <p>
+        First name:
+        <input id="firstName" type="text" name="firstName" value="firstName" />
+      </p>
+      <p>
+        Last name: <input id="lastName" type="text" name="lastName" value="lastName" />
+      </p>
+      <p>
+        password :<input
+          id="password"
+          type="text"
+          name="password"
+          value="password"
+        />
+      </p>
+      <p>Email: <input id="email" type="text" name="email" value="email" /></p>
+      <input type="submit" value="Register" />
+    </form>
   </body>
 </html>
