@@ -43,38 +43,42 @@ module.exports = function (app, shopData) {
     const plainpassword= req.body.password;
     console.log(plainpassword);
 
-  //  let sqlquery = "SELECT * FROM users"; // query database to get users and password
-    //let sqlquery_username_passowrd= "SELECT PASSWORD FROM users WHERE username = '" + username + "'"; // query database to get users and password
-    
-    //hashedPassword = sqlquery_username_passowrd;
-    //console.log(hashedPassword);
-    // execute sql query
+    let nameCheck= false;
+    let sql_nameCheck= "SELECT *FROM users";
 
-    // extract the hashed password from the database through the input username
-    let sql_q="SELECT PASSWORD FROM users WHERE username = ? ";
-
-    let sql_v=[req.body.userName];
-
-    db.query(sql_q, sql_v, (err, result) => {
-        if(err){
-            res.redirect("./");
-        }else{
-            console.log(result[0].PASSWORD);
-
-            var hashedPassword = result[0].PASSWORD;
-            bcrypt.compare(plainpassword, hashedPassword, function(err, result) {
-                // handle errors 
-                if (err) {
-                    console.log("error");
-                }
-              else if(result == true){
-                res.send("You are logged in");
-              }else{
-                res.redirect(400, './login');
-              }
-            });
+    db.query(sql_nameCheck, (err, result) => {
+      if (err) {
+        res.redirect("./");
+      }
+      for (let i=0; i<result.length; i++){
+        if (result[i].userName==username){
+          nameCheck=true;
+          break;
         }
-    });
+      }
+      if (nameCheck==false){
+        res.redirect(404,"./login");
+      }
+      else{
+        let sqlquery_username_passowrd= "SELECT PASSWORD FROM users WHERE username = '" + username + "'"; // query database to get users and password
+        db.query(sqlquery_username_passowrd, (err, result) => {
+          if (err) {
+            res.redirect("./");
+          }
+          console.log(result[0].PASSWORD);
+          let hashedPassword= result[0].PASSWORD;
+          bcrypt.compare(plainpassword, hashedPassword, function(err, result) {
+            if (result==true){
+              res.send("you have successfully login !");
+            }
+            else{
+              res.redirect(200,"./login");
+            }
+          });
+        });
+      }
+    }
+    );
   });
 
   // delete an user in the bookshop
@@ -87,16 +91,29 @@ module.exports = function (app, shopData) {
     
     let delteUser = req.body.userName;
 
-    let sqlquery = "DELETE FROM users WHERE userName = '" + delteUser + "'"; // query database to get users and password
+    let sqlquery = "DELETE FROM users WHERE userName = ? "; 
+    let sql_delete=[req.body.userName];
+    // query database to get users and password
     // execute sql query
-    db.query(sqlquery, (err, result) => {
+    db.query(sqlquery,sql_delete, (err, result) => {
         if(err){
             res.redirect("./");
         }else{
+let nweData= Object.assign({}, shopData, {availableUsers: result});
+          console.log("test1: " + nweData);
+          for(let i=0; i<result.length; i++){
+            if(result[i].userName==req.body.userName){
+              res.send("You are deleted");
+            }
+          }
+          console.log("test2: " +sqlquery);
+          console.log("test3: " +sql_delete);
+
             res.send("You have successfully deleted user " + delteUser+ " from the database");
         }
     });
   });
+
 
 
   app.get("/register", function (req, res) {
@@ -217,3 +234,4 @@ module.exports = function (app, shopData) {
     });
   });
 };
+
