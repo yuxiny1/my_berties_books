@@ -97,10 +97,10 @@ module.exports = function (app, shopData) {
         console.log("Error deleting user from database");
         res.redirect("./");
       } else {
-        // let nweData = Object.assign({}, shopData, { availableUsers: result });
-        // console.log("test1: " + nweData);
-        // console.log("test2: " + sqlquery);
-        // console.log("test3: " + sql_delete);
+        let nweData = Object.assign({}, shopData, { availableUsers: result });
+        console.log("test1: " + nweData);
+        console.log("test2: " + sqlquery);
+        console.log("test3: " + sql_delete);
         if(result.affectedRows==0){
           console.log("user doesnot exist");
           res.send('Please reenter an exist username, '+ delteUser+' does not exist or you could sign up with us');
@@ -181,57 +181,6 @@ module.exports = function (app, shopData) {
                   })
                 }
               });
-
-      // const saltRounds = 10;
-      // const plainPassword = req.body.password;
-      // let email = req.body.email;
-      // let firstName = req.body.firstName;
-      // let lastName = req.body.lastName;
-      // let userName = req.body.userName;
-      // //check wether or not get those data
-      // console.log(email);
-      // console.log(firstName);
-      // console.log(lastName);
-      // console.log(plainPassword);
-
-      // bcrypt.hash(plainPassword, saltRounds, function (err, hashedPassword) {
-      //   // query database to get all the books
-      //   console.log(hashedPassword);
-
-      //   let sqlquery =
-      //     "INSERT INTO users (firstName, lastName, userName, emailAddress, password) VALUES ('" +
-      //     firstName +
-      //     "', '" +
-      //     lastName +
-      //     "', '" +
-      //     userName +
-      //     "', '" +
-      //     email +
-      //     "', '" +
-      //     hashedPassword +
-      //     "')";
-
-      //   let newUserRecord = [req.body.appuser, hashedPassword];
-
-      //   console.log(sqlquery);
-      //   db.query(sqlquery, newUserRecord, (err, result) => {
-      //     if (err) {
-      //       return console.error(err.message);
-      //     } else {
-      //       res.send(
-      //         "You have successfully registered. Please <a href='/login'>login</a> to continue." +
-      //           firstName +
-      //           "password" +
-      //           hashedPassword
-      //         //req.body.hashedPassword
-      //       );
-      //     }
-      //     //store hashed password in your databse
-        // });
-      // });
-    
-
-
     
     app.get("/list", function (req, res) {
       let sqlquery = "SELECT * FROM books"; // query database to get all the books
