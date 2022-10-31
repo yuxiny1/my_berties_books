@@ -1,7 +1,15 @@
+//module.exports = function (app, shopData) {
 const bcrypt = require("bcrypt");
 const { application } = require("express");
 
 module.exports = function (app, shopData) {
+
+  const redirectLogin = (req, res, next) => {
+    if (!req.session.userId ) {
+    res.redirect('./login')
+    } else { next (); }
+    }
+  
   // Handle our routes
   app.get("/", function (req, res) {
     res.render("index.ejs", shopData);
@@ -30,56 +38,61 @@ module.exports = function (app, shopData) {
   });
 
   // login page to input useranme and password
-  app.get("/login", function (req, res) {
+  app.get("/login",function (req, res) {
     res.render("login.ejs", shopData);
   });
 
-  // verify the password and username
-  app.post("/loggedin", function (req, res) {
-    const username = req.body.userName;
-    console.log(username);
-    const plainpassword = req.body.password;
-    console.log(plainpassword);
-
-    // extract the hashed password from the database through the input username
-
-    let sql_q = "SELECT PASSWORD FROM users WHERE username = ? ";
-    let sql_v = [req.body.userName];
-    console.log(sql_v);
-
-    db.query(sql_q, sql_v, (err, result) => {
-      if (err) {
-        console.log(" something wrong getting users from the database")
-        res.redirect("./");
-      } else {
-        console.log(result);
-        let checkUsername = false;
-        for (let i = 0; i < result.length; i++) {
-          if (result[i].username == req.body.userName) {
-            checkUsername = true;
-            break;
+  app.post('/loggedin',function(req,res){
+    var username = req.body.userName;
+    if(username ==  "" || req.body.password == ""){
+      console.log("Empty fields");
+      res.send('Please enter a valid username and password');
+    }else{
+      let sqlquery = "SELECT *FROM users WHERE username =? ";
+      let sql_v=[req.body.userName];
+      db.query(sqlquery,sql_v,(err,result)=>{
+        if(err){
+          console.log("not getting the username from our database");
+          res.redirect('./');
+        }else{
+          let checkUsername =false;
+          let index=0;
+          for(let i=0; i<result.length;++i){
+            console.log(result);
+            if(result[i].userName==req.body.userName){
+              checkUsername =true;
+              index=i;
+              break;
+            }
+          }
+          if(checkUsername){
+            const plainpassword = req.body.password;
+            const hashedPassword = result[0].password;
+            console.log(plainpassword);
+            console.log(hashedPassword);
+            bcrypt.compare(plainpassword, hashedPassword, function (err,result){
+              if(err){
+                console.log(err);
+                res.redirect('./loggedin');
+              }
+              else{
+              if(result==true){
+                //console.log(Object.values(result[0])[2] + "logged");
+                req.session.userId = req.body.username;
+                res.send(" you are successfully logged in !")
+                }
+              }
+            })
           }
         }
-        if (checkUsername) {
-          console.log(result[0].PASSWORD);
-
-          var hashedPassword = result[0].PASSWORD;
-          bcrypt.compare(plainpassword, hashedPassword, function (err, result) {
-            // handle errors
-            if (err) {
-              console.log("error");
-            } else if (result == true) {
-              res.send("You are logged in");
-            } else {
-              res.redirect(400, "./login");
-            }
-          });
-        }
-      }
-    });
-  });
+      })
+    }
+  })
 
 
+
+
+  
   // delete an user in the bookshop
   app.get("/deleteuser", function (req, res) {
     res.render("deleteuser.ejs", shopData);
@@ -182,7 +195,7 @@ module.exports = function (app, shopData) {
                 }
               });
     
-    app.get("/list", function (req, res) {
+    app.get("/list",redirectLogin, function (req, res) {
       let sqlquery = "SELECT * FROM books"; // query database to get all the books
       // execute sql query
       db.query(sqlquery, (err, result) => {
@@ -230,6 +243,15 @@ module.exports = function (app, shopData) {
           );
       });
   });
+
+  app.get('/logout', redirectLogin, (req,res) => {
+    req.session.destroy(err => {
+    if (err) {
+    return res.redirect('./')
+    }
+    res.send('you are now logged out. <a href='+'./'+'>Home</a>');
+    })
+    })
 
   app.get("/bargainbooks", function (req, res) {
     let sqlquery = "SELECT * FROM books WHERE price < 20";
