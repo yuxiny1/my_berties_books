@@ -136,7 +136,7 @@ module.exports = function (app, shopData) {
         req.body.password == "" ||
         req.body.email == ""
         ){
-          res.send("Please fill the register form all")
+          res.send("Please fill the register form all ")
         }else{
           let sqlQueryRegister=
           "SELECT * FROM users WHERE userName = '"+req.body.userName+"' OR emailAddress='" + email + "'";
