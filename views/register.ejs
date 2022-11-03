@@ -7,16 +7,21 @@
   </head>
   <body>
     <h1>Register for <%=shopName%></h1>
-    <form method="POST" action="/registered">
+    <form id="form" method="POST" action="/registered">
       <p>
         First Name :
         <input id="firstName" type="text" name="firstName" value="" />
       </p>
+
       <p>
         Last Name : <input id="lastName" type="text" name="lastName" value="" />
       </p>
+
       <p> 
-        Username : <input id="userName" type="text" name="userName" value="" />
+        Username : <input id="userName" type="text" name="userName" value=""
+        required="required" minlength="5" maxlength="20"
+        pattern="[a-z]{4,8}"
+        title="4 to 8 lowercase letters"/>
       </p>
 
       <p>
@@ -25,10 +30,34 @@
           type="text"
           name="password"
           value=""
+          required="required" minlength="8" maxlength="20"
         />
       </p>
-      <p>Email: <input id="email" type="text" name="email" value="" /></p>
-      <input type="submit" value="Register" />
+      <p> Email: <input 
+        id="email" 
+        type="email" 
+        name="email"
+        value=""/></p>
+
+      <script>
+        //think about how to locate the probelm
+        //know how to check details 
+        // understand how to check 
+        console.log("test");
+        const email = document.getElementById("email");
+          email.addEventListener("submit", (event) => {
+            console.log("Add listenr");
+          if (email.checkValidity() == false) {
+            event.preventDefault();
+            event.stopPropagation();
+            email.setCustomValidity("ASDF I am expecting an e-mail address!");
+            email.reportValidity();
+          } else {
+            email.setCustomValidity("");
+          }
+        });
+      </script> 
+              <input type="submit" value="Register"/>
     </form>
   </body>
 </html>
