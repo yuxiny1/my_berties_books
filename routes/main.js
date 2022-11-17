@@ -20,10 +20,10 @@ module.exports = function (app, shopData) {
     res.render("about.ejs", shopData);
   });
 
-  app.get("/search", function (req, res) {
+  app.get("/search",redirectLogin, function (req, res) {
     res.render("search.ejs", shopData);
   });
-  app.get("/search-result", function (req, res) {
+  app.get("/search-result",function (req, res) {
     //searching in the database
     //res.send("You searched for: " + req.query.keyword);
     let sqlquery =
@@ -95,12 +95,12 @@ module.exports = function (app, shopData) {
   });
 
   // delete an user in the bookshop
-  app.get("/deleteuser", function (req, res) {
+  app.get("/deleteuser", redirectLogin,function (req, res) {
     res.render("deleteuser.ejs", shopData);
   });
 
   // delte the user in the databse
-  app.post("/userdeleted", redirectLogin, function (req, res) {
+  app.post("/userdeleted", function (req, res) {
     let delteUser = req.body.userName;
     let sqlquery = "DELETE FROM users WHERE userName = ? ";
     let sql_delete = [req.body.userName];
@@ -226,6 +226,7 @@ module.exports = function (app, shopData) {
 
   app.get("/list", redirectLogin, function (req, res) {
     let sqlquery = "SELECT * FROM books"; // query database to get all the books
+    
     // execute sql query
     db.query(sqlquery, (err, result) => {
       if (err) {
@@ -273,7 +274,7 @@ module.exports = function (app, shopData) {
     });
   });
 
-  app.get("/bargainbooks", function (req, res) {
+  app.get("/bargainbooks",redirectLogin, function (req, res) {
     let sqlquery = "SELECT * FROM books WHERE price < 20";
     db.query(sqlquery, (err, result) => {
       if (err) {
