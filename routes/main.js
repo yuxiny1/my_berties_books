@@ -2,12 +2,14 @@ module.exports = function (app, shopData) {
   const bcrypt = require("bcrypt");
   const { application } = require("express");
   const { check, validationResult } = require("express-validator");
+  const request = require("request");
+  //route for the weather api
 
   // GET route for the home page
   const redirectLogin = (req, res, next) => {
     if (!req.session.userId) {
-      //res.redirect("/login");
-      res.redirect("https://www.doc.gold.ac.uk/usr/666/login");
+      res.redirect("/login");
+      //res.redirect("https://www.doc.gold.ac.uk/usr/666/login");
     } else {
       next();
     }
@@ -18,7 +20,8 @@ module.exports = function (app, shopData) {
     let msg =
       "<script>alert('" +
       message +
-      "');window.location.href='https://www.doc.gold.ac.uk/usr/666/" +
+      // "');window.location.href='https://www.doc.gold.ac.uk/usr/666/" +
+      "');window.location.href='" +
       url +
       "';</script>";
     // another local version should be ./
@@ -200,7 +203,7 @@ module.exports = function (app, shopData) {
             "' OR emailAddress='" +
             email +
             "'";
-    // query database to get users and password
+          // query database to get users and password
           db.query(sqlQueryRegister, (err, result) => {
             if (result.length == 0) {
               const saltRounds = 10;
@@ -255,7 +258,7 @@ module.exports = function (app, shopData) {
       }
     }
   );
-    // GET route for the list page
+  // GET route for the list page
   app.get("/list", redirectLogin, function (req, res) {
     let sqlquery = "SELECT * FROM books"; // query database to get all the books
 
@@ -285,7 +288,7 @@ module.exports = function (app, shopData) {
     });
   });
 
-    // GET route for the add book page
+  // GET route for the add book page
   app.get("/addbook", redirectLogin, function (req, res) {
     res.render("addbook.ejs", shopData);
   });
@@ -330,6 +333,52 @@ module.exports = function (app, shopData) {
         res.redirect("/");
       } else {
         res.send("You are logged out");
+      }
+    });
+  });
+
+  app.get("/api", function (req, res) {
+    // Query database to get all the books
+    let sqlquery = "SELECT * FROM books";
+    // Execute the sql query
+    db.query(sqlquery, (err, result) => {
+      if (err) {
+        res.redirect("./");
+      }
+      // Return results as a JSON object
+      res.json(result);
+    });
+  });
+
+  app.get("/weather", function (req, res) {
+    // an api key is required to access the weather api
+    let apiKey = "d062288383d2c55210e669a14a4df0a9";
+    // the city name is passed as a query parameter
+    let city = "london";
+    // the url to access the weather api
+    let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    // make a request to the weather api
+    request(url, function (err, response, body) {
+      if (err) {
+        console.log("error:", error);
+      } else {
+        // parse the response body
+        var weather = JSON.parse(body);
+        // render the weather.ejs page and pass the weather data to it
+        if (weather !== undefined && weather.main !== undefined) {
+          // get the temperature
+          var wmsg =
+            "It is " +
+            weather.main.temp +
+            " degrees in " +
+            weather.name +
+            "! <br> The humidity now is: " +
+            weather.main.humidity;
+          res.send(wmsg);
+        } else {
+          // if the city name is not valid, return an error message
+          res.send("No data found");
+        }
       }
     });
   });
