@@ -1,23 +1,66 @@
-h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    color: darkcyan;
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+
+/* Path: public/main.css */ 
+
+:root {
+  --main-theme-color: #0f2540;
+  --main-background-color: #e9e1da;
+  --paragraph-color: rgb(41, 41, 80);
 }
 
+* {
+  box-sizing: border-box;
+}
+
+
+h1 {
+  font-family: "Titillium Web", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #199c72;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+    /* font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: darkcyan;
+} */ 
+
 h2 {
+
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #000;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+
+}
+    /* font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: cadetblue; */
+
+
+p,li {
+
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     color: cadetblue;
-}
-
-p,li {
-    font-family: Arial, Helvetica, sans-serif;
+    
 }
 
 a:link {
     color: orangered;
+
     text-decoration: none;
     padding:5px;
+    text-align: center;
+
   }
   
   /* visited link */
@@ -41,3 +84,874 @@ a:link {
     text-decoration: none;
     padding:5px;
   }
+
+
+
+h3,
+h3 button {
+  font-family: "Times New Roman", Times, serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  font-size: 17px;
+  color: black;
+}
+
+i {
+  margin-right: 5px;
+}
+
+p {
+  font-family: Helvetica Neue;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-size: 20px;
+  color: black;
+  padding-top: 5px;
+}
+
+/* Animation base section */
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes menuAnimation {
+  0% {
+    background-color: grey;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+/* End of animations */
+
+/* Main logo */
+#mainLogo {
+  width: 130px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* Logo is slighly enlarging on hover */
+#mainLogo:hover {
+  transform: scale(1.1);
+}
+
+/* Search area styling starts here */
+#searchArea {
+  background-color: transparent;
+  color: var(--main-theme-color);
+  font-size: 13px;
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+#searchArea .button {
+  position: relative;
+  border: solid 5px;
+  border-style: groove;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#searchArea .button:active {
+  border-style: ridge;
+}
+
+#searchArea .button img {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+::placeholder {
+  color: var(--main-theme-color);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--main-theme-color);
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--main-theme-color);
+}
+
+/* Non-standard styling of the Search placeholder */
+
+input {
+  border-top-style: groove;
+  padding: 5px;
+  border-right-style: groove;
+  border-left-style: groove;
+  border-bottom-style: groove;
+  background-color: white;
+  border-radius: 25px;
+  border-color: var(--main-theme-color);
+}
+
+input:focus {
+  outline: none;
+}
+/* End of serach area */
+
+/* Hero image styling */
+a.mainPageImage img {
+  display: flex;
+  max-width: 100%;
+}
+
+.mainPageImage {
+  display: flex;
+  text-align: center;
+  /* max-width: 100%; */
+  height: auto;
+  object-fit: cover;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/* End of hero image styling */
+
+/* Top info bar styling */
+/* The bar is animating - flying in from right on page load */
+#topInfo {
+  animation: 1s ease-out 0s 1 slideInFromRight;
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  color: #ffffff;
+  width: auto;
+  height: 45px;
+  padding: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  padding-left: 10px;
+  background-color: #0a0f3c;
+  font-size: 1.1em;
+  align-items: center;
+  border-radius: 5px;
+  opacity: 60%;
+  align-self: end;
+}
+
+/* starfield behind topInfo banner */
+#starfield {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("/media/stars.jpg");
+  background-repeat: repeat;
+  border-radius: 5px;
+}
+
+#topInfoText {
+  position: absolute;
+  width: 100%;
+  align-content: center;
+  color: white;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+    2px 2px 0 #000; /* css trick to add fonr stroke outlining, kinda */
+}
+/* End of top info bar styling */
+
+/* Top menu styling */
+#topMenu ol {
+  list-style-type: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-top: 0px;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--main-theme-color);
+  border-radius: 5px;
+}
+
+#topMenu li {
+  float: left;
+}
+
+#topMenu li a,
+#topMenu .dropbtn {
+  display: inline-block;
+  border-bottom: 5px solid;
+  border-color: transparent;
+  color: white;
+  text-align: center;
+  font-size: 1.6em;
+  padding: 14px 16px;
+  font-family: Calibri;
+  text-decoration: none;
+  margin-left: 5px;
+  align-self: stretch;
+}
+
+#topMenu li a:hover,
+#topMenu .dropdown:hover .dropbtn {
+  border-color: red;
+}
+
+#topMenu li.dropdown {
+  display: inline-block;
+  align-self: stretch;
+}
+
+#topMenu .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--main-background-color);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 10px;
+}
+
+#topMenu .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  font-size: 1.5em;
+  margin-left: 5px;
+}
+
+#topMenu .dropdown-content a:hover {
+  background-color: var(--main-background-color);
+  animation-name: menuAnimation;
+  animation-duration: 2s;
+}
+
+#topMenu .dropdown:hover .dropdown-content {
+  display: block;
+}
+/* End of top menu styling */
+
+/* Cookies bar */
+#cookiesBar {
+  animation: 1s ease-out 0s 1 slideInFromLeft;
+  position: fixed;
+  bottom: 10px;
+  left: 10%;
+  right: 10%;
+  width: 80%;
+  padding: 5px 14px;
+  text-align: center;
+  background-color: rgba(238, 238, 238, 0.8);
+  border-radius: 5px;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+#cookiesBar p {
+  text-align: center;
+  margin-top: 1px;
+  margin-bottom: 5px;
+  height: 1em;
+  width: 100%;
+  color: var(--main-theme-color);
+}
+p#cookiesDisclaimer {
+  font-size: 0.7em;
+  margin-bottom: 20px;
+}
+
+#cookiesDisclaimerButtons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#cookiesCloseButton {
+  height: 50px;
+  width: 50px;
+  /* background-color:#6600CC; */
+  background-color: rgba(238, 238, 238, 0.8);
+  z-index: 2;
+
+  border: none;
+  /* color: var(--main-theme-color); */
+  border-radius: 20px;
+  cursor: pointer;
+  position: absolute;
+  transition: 0.5s ease;
+  top: -27%;
+  left: 99%;
+}
+
+#cookiesAgreeButton {
+  color: #ffffff;
+  background-color: #64bd98;
+  width: 100px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+}
+#cookiesDisagreeButton {
+  color: #ffffff;
+  background-color: rgb(95, 102, 167);
+  border: none;
+  width: 100px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 15px;
+  font-family: Arial;
+  padding: 10px;
+}
+/* End of cookies bar styling */
+
+/* Main image for each page */
+.mainPageImage img {
+  border-radius: 25px;
+}
+
+/* Mixed styling part - common for some or all pages */
+section img {
+  border-radius: 25px;
+}
+
+section img.ico {
+  border-radius: 5px;
+}
+
+section {
+  background-color: white;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 10px;
+  border: 1px solid #aaaaaa;
+  overflow: hidden;
+  border-radius: 25px;
+}
+
+.homePageSectionBody p,
+.visitSectionBody p {
+  font-family: Calibri;
+  text-align: justify;
+  color: var(--paragraph-color);
+}
+
+.homePageSectionHeader h2,
+.attractionHeader h2,
+.attractionHeader h3,
+.sectionHeader h1,
+.sectionHeader h2,
+.visitSectionHeader h2 {
+  color: var(--main-theme-color);
+  font-family: "Titillium Web", sans-serif;
+  /* margin-left: 60px; */
+  text-align: center;
+}
+
+table,
+th,
+td {
+  border: 2px solid var(--main-theme-color);
+  border-collapse: collapse;
+  padding: 5px;
+  font-size: 1.04em;
+}
+
+.table {
+  margin-right: 50px;
+  border-radius: 50px;
+}
+
+.table th {
+  background-color: var(--main-theme-color);
+  color: white;
+  margin: 15px;
+  padding: 20px;
+}
+
+.tableStart {
+  font-weight: bold;
+}
+
+/*Index.html CSS------------------------------------*/
+
+.homePageSectionBody {
+  width: 500px;
+  height: 300px;
+  font-size: 15px;
+  margin-left: 60px;
+  float: left;
+  text-align: justify;
+}
+
+#aboutSpacePark_vid,
+#Location_img {
+  border-radius: 50px;
+  float: right;
+  margin-top: 20px;
+  width: 500px;
+  height: 300px;
+}
+
+div.homePageSectionBody div.table {
+  margin-top: 20px;
+}
+
+#ticketDescr {
+  display: inline-block;
+  float: left;
+}
+
+.homePageSectionBody ul {
+  float: right;
+  font-weight: bold;
+}
+
+section#faq .homePageSectionBody {
+  overflow-y: scroll; /* Show vertical scrollbar */
+  min-height: 200px;
+  max-height: 400px;
+}
+
+/* FAQ Collapsibles */
+
+#faq .homePageSectionBody {
+  width: 97%;
+}
+
+h3.faqQuestion,
+h3.faqQuestion button {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffffff;
+  color: var(--main-theme-color);
+  cursor: pointer;
+  padding: 18px 18px 18px 0px;
+  margin-left: 5px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  width: 98%;
+  border: none;
+  text-align: left;
+  outline: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+.active,
+h3.faqQuestion:hover,
+h3.faqQuestion:hover button,
+h3.faqQuestion.active,
+h3.faqQuestion.active button {
+  background-color: var(--main-theme-color);
+  color: #ffffff;
+}
+
+.faqAnswer {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+}
+
+/* Layout part */
+.grid-container-index {
+  display: grid;
+  padding-right: 20px;
+  padding-left: 20px;
+  grid-template-columns:
+    150px minmax(150px, 1fr) minmax(150px, 1fr) minmax(150px, 1fr)
+    minmax(150px, 1fr) 221px;
+
+  grid-template-areas:
+    "mlo   .   .   .   . sar"
+    "mlo tin tin tin tin tin"
+    "tme tme tme tme tme tme"
+    "mpi mpi mpi mpi mpi mpi"
+    "asp asp asp asp asp asp"
+    "loc loc loc loc loc loc"
+    "tic tic tic tic tic tic"
+    "faq faq faq faq faq faq"
+    "foo foo foo foo foo foo";
+}
+
+#mainLogo {
+  grid-area: mlo;
+}
+#topInfo {
+  grid-area: tin;
+}
+#searchArea {
+  grid-area: sar;
+}
+#topMenu {
+  grid-area: tme;
+}
+.mainPageImage {
+  grid-area: mpi;
+}
+
+.mainPageImage img {
+  width: 100%;
+}
+
+#aboutSpacePark {
+  grid-area: asp;
+}
+#location {
+  grid-area: loc;
+}
+
+#tickets {
+  grid-area: tic;
+}
+
+#faq {
+  grid-area: faq;
+}
+
+footer {
+  grid-area: foo;
+}
+
+/* End of the layout */
+
+/*attractions.html CSS-------------------------------------*/
+
+.attractionBody p {
+  font-family: Calibri;
+  font-size: 18px;
+  color: var(--paragraph-color);
+  text-align: justify;
+}
+
+.attractionImg {
+  height: 50%;
+  width: 100%;
+  margin: auto;
+}
+
+.attractionImg img,
+.attractionImg a {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.attractionHeader h3 {
+  margin-top: 0px;
+}
+
+section#attractionsMap {
+  text-align: center;
+  text-shadow: 1px 1px gray;
+}
+
+section#attractionsMap img {
+  align-self: center;
+}
+
+section#attractionsMap div.attractionHeader p {
+  margin-block-start: 1em;
+  /* margin-left: 60px; */
+  margin-top: 0px;
+}
+
+/* Layout section */
+.grid-container-attractions {
+  display: grid;
+  padding-right: 20px;
+  padding-left: 20px;
+  grid-template-columns:
+    150px minmax(150px, 1fr) minmax(150px, 1fr) minmax(150px, 1fr)
+    minmax(150px, 1fr) 221px;
+
+  grid-template-areas:
+    "mlo   .   .   .   . sar"
+    "mlo tin tin tin tin tin"
+    "tme tme tme tme tme tme"
+    "mpi mpi mpi mpi mpi mpi"
+    "oah oah oah oah oah oah"
+    "anz anz asz asz abz abz"
+    "ase ase ame ame ais ais"
+    "aez aez amz amz amt amt"
+    "szh szh szh szh szh szh"
+    "sat sat sps sps slg slg"
+    "mph mph mph mph mph mph"
+    "amp amp amp amp amp amp"
+    "foo foo foo foo foo foo";
+}
+
+#mainLogo {
+  grid-area: mlo;
+}
+#topInfo {
+  grid-area: tin;
+}
+#searchArea {
+  grid-area: sar;
+}
+#topMenu {
+  grid-area: tme;
+}
+.mainPageImage {
+  grid-area: mpi;
+}
+
+#ourAttHeader {
+  grid-area: oah;
+}
+#attractions_nasaZone {
+  grid-area: anz;
+}
+
+#attractions_spaceXZone {
+  grid-area: asz;
+}
+
+#attractions_blackHolesZone {
+  grid-area: abz;
+}
+
+#attractions_seti {
+  grid-area: ase;
+}
+
+#attractions_marsExploration {
+  grid-area: ame;
+}
+#attractions_iss {
+  grid-area: ais;
+}
+#attractions_experimentalZone {
+  grid-area: aez;
+}
+#attractions_movieZone {
+  grid-area: amz;
+}
+#attractions_movieTheater {
+  grid-area: amt;
+}
+#simZoneHeader {
+  grid-area: szh;
+}
+#attractions_astronautTraining {
+  grid-area: sat;
+}
+#attractions_pilotTheSpaceship {
+  grid-area: sps;
+}
+#attractions_lowGravity {
+  grid-area: slg;
+}
+#mapHeader {
+  grid-area: mph;
+}
+#attractionsMap {
+  grid-area: amp;
+}
+
+footer {
+  grid-area: foo;
+}
+/* End of the layout part */
+
+/*visit.html CSS-----------------------------------*/
+
+div.visitSectionHeader h2 {
+  text-align: left;
+}
+
+.visitSectionHeader {
+}
+
+section div.visitSectionBody {
+  margin-left: 60px;
+}
+
+/* Layout section */
+.grid-container-visit {
+  display: grid;
+  padding-right: 20px;
+  padding-left: 20px;
+  grid-template-columns:
+    150px minmax(150px, 1fr) minmax(150px, 1fr) minmax(150px, 1fr)
+    minmax(150px, 1fr) 221px;
+
+  grid-template-areas:
+    "mlo   .   .   .   . sar"
+    "mlo tin tin tin tin tin"
+    "tme tme tme tme tme tme"
+    "mpi mpi mpi mpi mpi mpi"
+    "oho oho oho tra tra tra"
+    "din din din acc acc acc"
+    "dis dis dis dis dis dis"
+    "foo foo foo foo foo foo";
+}
+
+#mainLogo {
+  grid-area: mlo;
+}
+#topInfo {
+  grid-area: tin;
+}
+#searchArea {
+  grid-area: sar;
+}
+#topMenu {
+  grid-area: tme;
+}
+.mainPageImage {
+  grid-area: mpi;
+}
+
+#operatingHours {
+  grid-area: oho;
+}
+
+#transportation {
+  grid-area: tra;
+}
+
+#dining {
+  grid-area: din;
+}
+
+#accommodation {
+  grid-area: acc;
+}
+
+#disabilities {
+  grid-area: dis;
+}
+
+footer {
+  grid-area: foo;
+}
+/* End of the layout part */
+
+/*Footer CSS-------------------------------------------*/
+
+footer {
+  background-color: var(--main-theme-color);
+  color: white;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+footer .infoGroup {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#contactDetails.infoGroup {
+  float: right;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}
+footer h3 {
+  color: white;
+  font-size: 1.5em;
+}
+
+footer li a:hover {
+  box-shadow: 0 10px 0 0 #e07a5f;
+  border-color: #e07a5f;
+  opacity: 1;
+}
+
+footer button {
+  background: transparent;
+  border-radius: 5px;
+}
+footer ul {
+  list-style-type: none;
+  padding-inline-start: 10px;
+}
+
+footer #socialLinks li {
+  display: inline-block;
+}
+
+footer li {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+footer #contactDetails li {
+  margin-left: 10px;
+  margin-bottom: 0px;
+}
+
+footer img.social-icon {
+  display: flex;
+  width: auto;
+  height: 35px;
+}
+.social-icon {
+  display: flex;
+  width: 28px;
+  height: 28px;
+}
+
+footer button#topBtn img {
+  display: flex;
+  width: 28px;
+  height: 24px;
+  margin: 0;
+}
+
+#topBtn img {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0px;
+}
+
+#copyrightNote p {
+  color: white;
+  font-size: 0.75em;
+}
