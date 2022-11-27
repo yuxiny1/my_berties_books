@@ -384,4 +384,35 @@ module.exports = function (app, shopData) {
       }
     });
   });
+    //get route for tvshows
+    app.get("/tvshows", function (req, res) {
+      res.render("tvshows.ejs", shopData);
+    });
+    //get route for tvshows-result
+    app.get("/tvshows-result", function (req, res) {
+      // an api key is required to access the weather api
+      let apiKey
+      // the tv name is passed as a query parameter
+      let keyword = req.query.keyword;
+      // the url to access the weather api
+      let url = `http://api.tvmaze.com/search/shows?q=${keyword}`;
+      // make a request to the weather api
+      request(url, function (err, response, body) {
+        if (err) {
+          console.log("error:", error);
+        } else {
+          // parse the response body
+          var tvshows = JSON.parse(body);
+          // render the weather.ejs page and pass the weather
+          if (tvshows !== undefined) {
+            // get the temperature
+            var wmsg = "";
+            for (var i = 0; i < tvshows.length; i++) {
+              wmsg += tvshows[i].show.name + "<br>";
+            }
+            res.send(wmsg);
+          }
+        }
+      });
+    });
 };
