@@ -1,7 +1,7 @@
 module.exports = function (app, shopData) {
   const bcrypt = require("bcrypt");
   const { application } = require("express");
-  const { check, validationResult } = require("express-validator");
+  const { check, validationResult, sanitize } = require("express-validator");
   const request = require("request");
   //route for the weather api
 
@@ -349,12 +349,14 @@ module.exports = function (app, shopData) {
       res.json(result);
     });
   });
-
   app.get("/weather", function (req, res) {
+    res.render("weather.ejs", shopData);
+  });
+  app.get("/weather-result", function (req, res) {
     // an api key is required to access the weather api
     let apiKey = "d062288383d2c55210e669a14a4df0a9";
     // the city name is passed as a query parameter
-    let city = "london";
+    let city = req.query.keyword;
     // the url to access the weather api
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
     // make a request to the weather api
