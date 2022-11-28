@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <p><a href="/"> HOME PAGE </a></p>
   <head>
-    <title>Search TV shows here<%=shopName%></title>
     <link rel="stylesheet" type="text/css" href="main.css" />
+    <title>Search city weather <%=shopName%></title>
   </head>
   <body>
-    <h1>Search TV shows here <%=shopName%></h1>
-    <form action="/tvshows-result" method="GET">
-      <p>What TV Shows do you want?</p>
+    <h1>Search city's weather <%=shopName%></h1>
+    <form action="/search-result" method="GET">
+      <p>which cities weather do you want?</p>
       <input id="search-box" type="text" name="keyword" value="Default" />
       <input type="submit" value="Search" />
     </form>

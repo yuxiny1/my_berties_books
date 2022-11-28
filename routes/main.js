@@ -306,6 +306,7 @@ module.exports = function (app, shopData) {
   });
 
   // POST route for the add book page, validate the input and add the book to the database
+
   app.post("/bookadded", function (req, res) {
     // saving data in database
     let sqlquery = "INSERT INTO books (name, price) VALUES (?,?)";
@@ -350,7 +351,6 @@ module.exports = function (app, shopData) {
   });
 
   //Add a feature to your API to allow a parameter to add a search term. For example, this URL will search for books that contain the word ‘universe’:
-
   app.get("/api", (req, res) => {
     let sqlquery = "SELECT * FROM books";
     let keyword = req.query.keyword;
@@ -365,6 +365,7 @@ module.exports = function (app, shopData) {
     });
   });
 
+//weather api 
   app.get("/weather", function (req, res) {
     res.render("weather.ejs", shopData);
   });
@@ -400,6 +401,8 @@ module.exports = function (app, shopData) {
       }
     });
   });
+//weather api end
+
   //get route for tvshows
   app.get("/tvshows", function (req, res) {
     res.render("tvshows.ejs", shopData);
