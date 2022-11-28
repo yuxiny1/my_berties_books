@@ -369,6 +369,7 @@ module.exports = function (app, shopData) {
   app.get("/weather", function (req, res) {
     res.render("weather.ejs", shopData);
   });
+  
   app.get("/weather-result", function (req, res) {
     // an api key is required to access the weather api
     let apiKey = "d062288383d2c55210e669a14a4df0a9";
