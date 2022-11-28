@@ -90,8 +90,12 @@ module.exports = function (app, shopData) {
               checkUsername = true;
               index = i;
               break;
+            } else {
+              checkUsername = false;
             }
+            res.send("Please enter a valid username and password");
           }
+
           if (checkUsername) {
             // check if the password is correct
             const plainpassword = password;
@@ -112,10 +116,18 @@ module.exports = function (app, shopData) {
                     req.session.userId = sql_v;
                     let msg = "you are successfully logged in";
                     res.send(afterLogin(msg, "about"));
+                  } else {
+                    console.log("WRONG USERNAME OR PASSWORD");
+                    res.send("WRONG USERNAME OR PASSWORD");
                   }
                 }
               }
             );
+          }
+          // if the username does not exist in the database
+          else {
+            console.log("WRONG USERNAME OR PASSWORD");
+            res.send("WRONG USERNAME OR PASSWORD");
           }
         }
       });
@@ -337,18 +349,22 @@ module.exports = function (app, shopData) {
     });
   });
 
-  app.get("/api", function (req, res) {
-    // Query database to get all the books
+  //Add a feature to your API to allow a parameter to add a search term. For example, this URL will search for books that contain the word ‘universe’:
+
+  app.get("/api", (req, res) => {
     let sqlquery = "SELECT * FROM books";
-    // Execute the sql query
+    let keyword = req.query.keyword;
+    if (keyword) {
+      sqlquery += " WHERE name LIKE '%" + keyword + "%'";
+    }
     db.query(sqlquery, (err, result) => {
       if (err) {
         res.redirect("./");
       }
-      // Return results as a JSON object
       res.json(result);
     });
   });
+
   app.get("/weather", function (req, res) {
     res.render("weather.ejs", shopData);
   });
@@ -384,35 +400,35 @@ module.exports = function (app, shopData) {
       }
     });
   });
-    //get route for tvshows
-    app.get("/tvshows", function (req, res) {
-      res.render("tvshows.ejs", shopData);
-    });
-    //get route for tvshows-result
-    app.get("/tvshows-result", function (req, res) {
-      // an api key is required to access the weather api
-      let apiKey
-      // the tv name is passed as a query parameter
-      let keyword = req.query.keyword;
-      // the url to access the weather api
-      let url = `http://api.tvmaze.com/search/shows?q=${keyword}`;
-      // make a request to the weather api
-      request(url, function (err, response, body) {
-        if (err) {
-          console.log("error:", error);
-        } else {
-          // parse the response body
-          var tvshows = JSON.parse(body);
-          // render the weather.ejs page and pass the weather
-          if (tvshows !== undefined) {
-            // get the temperature
-            var wmsg = "";
-            for (var i = 0; i < tvshows.length; i++) {
-              wmsg += tvshows[i].show.name + "<br>";
-            }
-            res.send(wmsg);
+  //get route for tvshows
+  app.get("/tvshows", function (req, res) {
+    res.render("tvshows.ejs", shopData);
+  });
+  //get route for tvshows-result
+  app.get("/tvshows-result", function (req, res) {
+    // an api key is required to access the weather api
+    let apiKey;
+    // the tv name is passed as a query parameter
+    let keyword = req.query.keyword;
+    // the url to access the weather api
+    let url = `http://api.tvmaze.com/search/shows?q=${keyword}`;
+    // make a request to the weather api
+    request(url, function (err, response, body) {
+      if (err) {
+        console.log("error:", error);
+      } else {
+        // parse the response body
+        var tvshows = JSON.parse(body);
+        // render the weather.ejs page and pass the weather
+        if (tvshows !== undefined) {
+          // get the temperature
+          var wmsg = "";
+          for (var i = 0; i < tvshows.length; i++) {
+            wmsg += tvshows[i].show.name + "<br>";
           }
+          res.send(wmsg);
         }
-      });
+      }
     });
+  });
 };

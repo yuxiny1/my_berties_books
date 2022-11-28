@@ -1,17 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <p><a  href="/"> HOME PAGE </a></p>
+    <p><a href="/"> HOME PAGE </a></p>
     <title>Welcome to <%=shopName%></title>
-    <link rel="stylesheet"  type="text/css" href="main.css" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
   </head>
   <body>
     <h1><%=shopName%> Shop</h1>
     <h2>Here are our bargain books:</h2>
     <ul>
       <% availableBooks.forEach(function(book) { %>
-        <li><%= book.name %>, £<%=book.price%> </li>
+      <li><%= book.name %>, £<%=book.price%></li>
       <% }) %>
     </ul>
-    </body>
+  </body>
 </html>
