@@ -20,7 +20,7 @@ module.exports = function (app, shopData) {
     let msg =
       "<script>alert('" +
       message +
- "');window.location.href='https://www.doc.gold.ac.uk/usr/666/" +
+      "');window.location.href='https://www.doc.gold.ac.uk/usr/666/" +
       //"');window.location.href='" +
       url +
       "';</script>";
@@ -353,7 +353,9 @@ module.exports = function (app, shopData) {
   //Add a feature to your API to allow a parameter to add a search term. For example, this URL will search for books that contain the word ‘universe’:
   app.get("/api", (req, res) => {
     let sqlquery = "SELECT * FROM books";
+    // execute sql query
     let keyword = req.query.keyword;
+    // if keyword is not empty, add the keyword to the sql query
     if (keyword) {
       sqlquery += " WHERE name LIKE '%" + keyword + "%'";
     }
@@ -365,11 +367,11 @@ module.exports = function (app, shopData) {
     });
   });
 
-//weather api 
+  //weather api
   app.get("/weather", function (req, res) {
     res.render("weather.ejs", shopData);
   });
-  
+
   app.get("/weather-result", function (req, res) {
     // an api key is required to access the weather api
     let apiKey = "d062288383d2c55210e669a14a4df0a9";
@@ -402,7 +404,7 @@ module.exports = function (app, shopData) {
       }
     });
   });
-//weather api end
+  //weather api end
 
   //get route for tvshows
   app.get("/tvshows", function (req, res) {
@@ -427,6 +429,7 @@ module.exports = function (app, shopData) {
         if (tvshows !== undefined) {
           // get the temperature
           var wmsg = "";
+          // loop through the tvshows array and get the name and image of each tvshow
           for (var i = 0; i < tvshows.length; i++) {
             wmsg += tvshows[i].show.name + "<br>";
           }
