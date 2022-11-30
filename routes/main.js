@@ -376,28 +376,6 @@ module.exports = function (app, shopData) {
     // an api key is required to access the weather api
     let apiKey = "d062288383d2c55210e669a14a4df0a9";
     // the city name is passed as a query parameter
-    //   let city = req.query.city;
-    //   // the url to access the weather api
-    //   let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-    //   // request the weather api
-    //   request(url, function (err, response, body) {
-    //     if (err) {
-    //       console.log("error:", error);
-    //       res.render("weather.ejs", shopData);
-    //     } else {
-    //       let weather = JSON.parse(body);
-    //       if (weather.main == undefined) {
-    //         res.render("weather.ejs", shopData);
-    //       } else {
-    //         let weatherText = `It's ${weather.main.temp} degrees in ${weather.name}!`;
-    //         res.render("weather.ejs", { weather: weatherText, shopData });
-    //       }
-    //     }
-    //   }
-    //   );
-    // }
-    // );
-
     let city = req.query.keyword;
     // the url to access the weather api
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
@@ -408,7 +386,7 @@ module.exports = function (app, shopData) {
         console.log("error:", error);
       } else {
         // parse the response body
-        var weather = JSON.parse(body);
+        const weather = JSON.parse(body);
         // render the weather.ejs page and pass the weather data to it
         if (weather !== undefined && weather.main !== undefined) {
           // get the temperature
@@ -433,7 +411,7 @@ module.exports = function (app, shopData) {
             "\nthe temperature min is: " +
             weather.main.temp_min +
             "degrees !";
-  
+          //res.render("weather-result.ejs", { weather });
           res.send(wmsg);
         } else {
           // if the city name is not valid, return an error message

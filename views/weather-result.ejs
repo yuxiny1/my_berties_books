@@ -4,9 +4,10 @@
     <link rel="stylesheet" type="text/css" href="main.css" />
   </head>
   <body>
-    <h1> 
-      <%=shopName%>
-      weather in <%=city%>
-    </h1>
+    <% if (weather) { %>
+      <h1>Weather in <%= weather.name %></h1>
+      <p>Temperature: <%= weather.main.temp %> °C</p>
+
+
   </body>
 </html>
