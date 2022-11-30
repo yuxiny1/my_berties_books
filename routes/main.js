@@ -376,9 +376,32 @@ module.exports = function (app, shopData) {
     // an api key is required to access the weather api
     let apiKey = "d062288383d2c55210e669a14a4df0a9";
     // the city name is passed as a query parameter
+    //   let city = req.query.city;
+    //   // the url to access the weather api
+    //   let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    //   // request the weather api
+    //   request(url, function (err, response, body) {
+    //     if (err) {
+    //       console.log("error:", error);
+    //       res.render("weather.ejs", shopData);
+    //     } else {
+    //       let weather = JSON.parse(body);
+    //       if (weather.main == undefined) {
+    //         res.render("weather.ejs", shopData);
+    //       } else {
+    //         let weatherText = `It's ${weather.main.temp} degrees in ${weather.name}!`;
+    //         res.render("weather.ejs", { weather: weatherText, shopData });
+    //       }
+    //     }
+    //   }
+    //   );
+    // }
+    // );
+
     let city = req.query.keyword;
     // the url to access the weather api
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    // use the request module to access the weather api
     // make a request to the weather api
     request(url, function (err, response, body) {
       if (err) {
@@ -395,7 +418,22 @@ module.exports = function (app, shopData) {
             " degrees in " +
             weather.name +
             "! <br> The humidity now is: " +
-            weather.main.humidity;
+            weather.main.humidity +
+            "the weather is: " +
+            weather.weather[0].description +
+            "you will feel like: " +
+            weather.main.feels_like +
+            "degrees !" +
+            "the wind speed is: " +
+            weather.wind.speed +
+            "m/s" +
+            "\nthe temperature max is: " +
+            weather.main.temp_max +
+            "degrees!" +
+            "\nthe temperature min is: " +
+            weather.main.temp_min +
+            "degrees !";
+  
           res.send(wmsg);
         } else {
           // if the city name is not valid, return an error message
