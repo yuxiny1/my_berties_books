@@ -430,7 +430,6 @@ module.exports = function (app, shopData) {
   //get route for tvshows-result
   app.get("/tvshows-result", function (req, res) {
     // an api key is required to access the weather api
-    let apiKey;
     // the tv name is passed as a query parameter
     let keyword = req.query.keyword;
     // the url to access the weather api
@@ -441,7 +440,9 @@ module.exports = function (app, shopData) {
         console.log("error:", error);
       } else {
         // parse the response body
-        var tvshows = JSON.parse(body);
+        const tvshows = JSON.parse(body);
+        let newData=Object.assign({},shopData,  {availableTvshows:tvshows});
+
         // render the weather.ejs page and pass the weather
         if (tvshows !== undefined) {
           // get the temperature
@@ -450,7 +451,7 @@ module.exports = function (app, shopData) {
           for (var i = 0; i < tvshows.length; i++) {
             wmsg += tvshows[i].show.name + "<br>";
           }
-          res.render("tvshow-result.ejs", { tvshows });
+          res.render("tvshow-result.ejs", {tvshows});
           //res.send(wmsg);
         }
       }
