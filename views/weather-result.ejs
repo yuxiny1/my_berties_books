@@ -4,10 +4,12 @@
     <link rel="stylesheet" type="text/css" href="main.css" />
   </head>
   <body>
-    <% if (weather) { %>
-      <h1>Weather in <%= weather.name %></h1>
-      <p>Temperature: <%= weather.main.temp %> °C</p>
-
-
+    <p>
+      <% if (weather) { %> Weather in <%= weather.name %> Temperature: <%=
+      weather.main.temp %> °C Humidity: <%= weather.main.humidity %> % Wind
+      speed: <%= weather.wind.speed %> m/s London NOW is: <%=
+      weather.weather[0].description %> <% 
+    } else { %> No weather found for <%=keyword %> <%}%>
+    </p>
   </body>
 </html>

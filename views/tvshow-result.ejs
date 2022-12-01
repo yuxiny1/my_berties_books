@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+  </head>
+  <body>
+<p>
+        <% if (tvshows) { %>
+            <% tvshows.forEach(function(tvshow) { %>
+            <li><%= tvshow.name %></li>
+            <% }) %>
+        <%  } else { %>
+            No TV shows found for <%=keyword %>
+        <%}%>
+        </p>
+    </body>
+</p>
+<!-- 
+    { %> Weather in <%= weather.name %> Temperature: <%=
+        weather.main.temp %> °C Humidity: <%= weather.main.humidity %> % Wind
+        speed: <%= weather.wind.speed %> m/s London NOW is: <%=
+        weather.weather[0].description %> <% 
+      } else { %> No weather found for <%=keyword %> <%}%> -->
+  </p>
+    </body>
+</html>
+
+<!-- Path: views/tvshow-result.ejs -->

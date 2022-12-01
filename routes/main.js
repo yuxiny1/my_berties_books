@@ -411,8 +411,9 @@ module.exports = function (app, shopData) {
             "\nthe temperature min is: " +
             weather.main.temp_min +
             "degrees !";
-          //res.render("weather-result.ejs", { weather });
-          res.send(wmsg);
+            //console.log(weather);
+          res.render("weather-result.ejs", { weather });
+          //res.send(wmsg);
         } else {
           // if the city name is not valid, return an error message
           res.send("No data found");
@@ -449,7 +450,8 @@ module.exports = function (app, shopData) {
           for (var i = 0; i < tvshows.length; i++) {
             wmsg += tvshows[i].show.name + "<br>";
           }
-          res.send(wmsg);
+          res.render("tvshow-result.ejs", { tvshows });
+          //res.send(wmsg);
         }
       }
     });
