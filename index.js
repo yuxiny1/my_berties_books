@@ -42,6 +42,7 @@ db.connect((err) => {
 });
 global.db = db;
 
+
 // Set the directory where Express will pick up HTML files
 // __dirname will get the current directory
 app.set("views", __dirname + "/views");
